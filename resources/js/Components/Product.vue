@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
 
 const props = defineProps({
     product: Object
@@ -24,7 +25,7 @@ const submit = (data) => {
         <p class="text-lg font-bold">{{ product.name }}</p>
         <p class="mt-12">${{ product.price }}</p>
         <form method="POST" class="grid grid-cols-2 gap-2" @submit.prevent="submit(product)">
-            <input type="number" v-model="form.q" name="q" id="q" placeholder="Quantity" required>
+            <Input type="number" v-model="form.q" name="q" id="q" placeholder="Quantity" required></Input>
             <Button type="submit">Add to Cart</Button>
         </form>
 

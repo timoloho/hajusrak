@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { Button } from '@/Components/ui/button'
+
 import { ShoppingBagIcon, TrashIcon } from '@heroicons/vue/24/solid'
 import Product from '@/Components/Product.vue';
 import {
@@ -39,7 +40,7 @@ function updateValue(item, id) {
             <div class="flex items-center justify-between">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Store</h2>
                 <DropdownMenu>
-                    <DropdownMenuTrigger class="flex"><ShoppingBagIcon class="w-6"/><sup>{{ Object.keys(props.cart).length }}</sup></DropdownMenuTrigger>
+                    <DropdownMenuTrigger class="flex"><ShoppingBagIcon class="w-6"/><sup v-if="Object.keys(props.cart)">{{ Object.keys(props.cart).length }}</sup></DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuLabel>Shopping Bag</DropdownMenuLabel>
                         <DropdownMenuSeparator />
