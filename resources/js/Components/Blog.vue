@@ -1,5 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
 
 const props = defineProps({
     blog: Object,
@@ -44,8 +46,8 @@ function returnUser(id) {
         <div class="px-6 pb-6 text-gray-900">{{ blog.description }}</div>
         <form method="POST" class="px-6 pb-6" @submit.prevent="submit(blog)">
             <div class="flex gap-2">
-                <input type="text" v-model="form.comment" name="comment" placeholder="comment">
-                <button type="submit">Add</button>
+                <Input type="text" v-model="form.comment" name="comment" :placeholder="'Comment as ' + $page.props.auth.user.name"></Input>
+                <Button type="submit">Add</Button>
             </div>
         </form>
         <div class="px-6 pb-4">
