@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StripeController;
 use App\Models\Blog;
 use App\Models\Product;
 use App\Models\User;
@@ -68,5 +69,9 @@ Route::resource('cart', StoreController::class)->except('update');
 Route::post('/shopping-cart-add', [ShoppingCartController::class, 'addToCart'])->name('shoppingCart.add');
 Route::get('/checkout', [ShoppingCartController::class, 'showCheckout'])->name('shop.checkout');
 Route::delete('/shopping-cart-delete', [ShoppingCartController::class, 'destroyProduct'])->name('shoppingCart.destroy');
+
+Route::get('/stripe', [StripeController::class, 'index'])->name('index');
+Route::get('/payment', [StripeController::class, 'checkout'])->name('payment');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
 
 require __DIR__.'/auth.php';
