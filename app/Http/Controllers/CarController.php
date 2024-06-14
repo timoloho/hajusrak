@@ -34,9 +34,9 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $song = Car::create($request->all());
+        $car = Car::create($request->all());
 
-        return response()->json($song);
+        return response()->json($car);
     }
 
     /**
