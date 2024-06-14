@@ -24,6 +24,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/class', function() {
+    return Inertia::render('Api/Index');
+})->middleware(['auth:sanctum', 'verified'])->name('api');
+
 Route::get('/dashboard', function () {
     Cache::remember('weather', now()->addHour(), fn () => Http::get('https://api.openweathermap.org/data/2.5/weather', [
         'q' => 'Kuressaare',
@@ -36,7 +40,7 @@ Route::get('/dashboard', function () {
         'blogs' => Blog::with('comments')->get(),
         'users' => User::all()
     ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth:sanctum', 'verified'])->name('dashboard');
 
 Route::get('/store', function () {
     return Inertia::render('Store/Store', [
@@ -49,7 +53,7 @@ Route::get('/maps', function () {
     return Inertia::render('Maps');
 })->middleware(['auth', 'verified'])->name('maps');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
