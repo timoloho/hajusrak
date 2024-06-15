@@ -19,6 +19,12 @@ class ApiController extends Controller
         return $response->json();
     } 
 
+    private function VW($limit) {
+        $response = Http::get('https://vwapi.tak21mander.itmajakas.ee/api/vw?limit=' . $limit);
+
+        return $response->json();
+    } 
+
     public function index() {
 
         $limit = request()->get('limit') ?? '';
@@ -32,6 +38,10 @@ class ApiController extends Controller
         } else if (request()->get('whatapi') == 'cars'){
             $response = $this->cars($limit);
         }
+        else if (request()->get('whatapi') == 'vw'){
+            $response = $this->vw($limit);
+        }
+
 
         return $response;
     }

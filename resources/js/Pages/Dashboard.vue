@@ -16,9 +16,9 @@ console.log(props.weatherData)
 
     <AuthenticatedLayout>
         <template #header>
-            <div class="flex items-center justify-between">
+            <div class="">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Blog</h2>
-                <div class="flex items-center gap-4">
+                <div class="">
                     <h1 class="font-bold">{{ props.weatherData.name }} </h1>
                     <p>{{ props.weatherData.weather[0].description }}</p>
                     <img :src="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '.png'" alt="">

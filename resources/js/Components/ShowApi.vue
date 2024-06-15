@@ -38,6 +38,7 @@ export default {
                     <option value="">Select api</option>
                     <option value="lurescape">Sulla Mulla Kala</option>
                     <option value="cars">Autod</option>
+                    <option value="vw">Volkswagen (minu oma)</option>
                 </select>
                 <input
                     type="number"
@@ -76,6 +77,23 @@ export default {
                     <p>Engine: {{ data?.model }}</p>
                     <p>Body: {{ data?.body }}</p>
                     <p>Kilometers: {{ data?.mileage }}</p>
+                </div>
+            </div>
+            <div
+                v-if="whatapi == 'vw'"
+                v-for="data in apiData"
+                :key="data.id"
+            >
+                <div>
+                    <div class="w-24 h-24">
+                        <img :src="data?.image_url" :alt="data?.name" />
+                    </div>
+                    <div>
+                        <h1>{{ data?.title }}</h1>
+                        <p>{{ data?.description }}</p>
+                        <p>{{ data?.mudel }}</p>
+                        <p>{{ data?.engine }}</p>
+                    </div>
                 </div>
             </div>
         </div>

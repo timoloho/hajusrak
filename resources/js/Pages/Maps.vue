@@ -16,12 +16,12 @@ import Radar from '@/Pages/Radar.vue';
         </template>
 
         <div class="py-12">
-            <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+            <div class="">
                 <Radar ref="radar" @location-selected="updateLocation" />
 
                 <div
                     v-if="editMode == false"
-                    class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 mt-2"
+                    class=""
                 >
                     <form
                         @submit.prevent="addPoint"
@@ -32,7 +32,7 @@ import Radar from '@/Pages/Radar.vue';
                             type="text"
                             step="any"
                             placeholder="Name"
-                            class="rounded border"
+                            class=""
                         />
                         <textarea
                             v-model="description"
@@ -41,21 +41,21 @@ import Radar from '@/Pages/Radar.vue';
                             cols="30"
                             rows="4"
                             placeholder="Description"
-                            class="rounded border resize-none"
+                            class="resize-none"
                         ></textarea>
                         <input
                             v-model="newPoint.lat"
                             type="number"
                             step="any"
                             placeholder="Latitude"
-                            class="rounded border"
+                            class=""
                         />
                         <input
                             v-model="newPoint.lng"
                             type="number"
                             step="any"
                             placeholder="Longitude"
-                            class="rounded border"
+                            class=""
                         />
                         <button type="submit" class="border p-2 rounded-lg">Add marker</button>
                     </form>
