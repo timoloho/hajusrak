@@ -2,44 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Stripe\StripeClient;
+use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Stripe\Checkout\Session;
-use Stripe\Stripe;
+use Stripe\Stripe as StripeGateway;
 
 class StripeController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Stripe/index');
-    }
+        \Stripe\Stripe::setApiKey('sk_test_51PQzd600DnYfwWSKHJ7MTP6SqwbhsKjcFuesleNyR3WxUGjgtgbqvFiXjOtVeDFmGmJQRwD9CKTgBH3mwWmt3gqU00UFG6yp6h');
+        header('Content-Type: application/json');
 
-    public function checkout() {
-        Stripe::setApiKey(config('stripe.sk'));
+        $line_items = [];
 
-        $session = Session::create([
-            'line_items'  => [
-                [
-                    'price_data' => [
-                        'currency'     => 'gbp',
-                        'product_data' => [
-                            'name' => 'T-shirt',
-                        ],
-                        'unit_amount'  => 500,
+        foreach (session()->get('cart') as $item) {
+            $line_items[] = [
+                'price_data' => [
+                    'currency'     => 'eur',
+                    'unit_amount'  => $item['price'] * 100,
+                    'product_data' => [
+                        'name' => $item['name'],
                     ],
-                    'quantity'   => 1,
                 ],
-            ],
-            'mode'        => 'payment',
-            'success_url' => route('success'),
-            'cancel_url'  => route('store'),
+                'quantity' => $item['quantity']
+            ];
+        }
+
+        $checkout_session = \Stripe\Checkout\Session::create([
+        'line_items' => $line_items,
+        'mode' => 'payment',
+        'success_url' => route('store'),
+        'cancel_url' => route('store'),
         ]);
 
-        return redirect()->away($session->url);
-    }
-
-    public function success()
-    {
-        return view('store');
+        return redirect()->away($checkout_session->url);
+        // return Inertia::render('Store/Checkout', [
+        //     'checkout_session' => $checkout_session
+        // ]);
     }
 }

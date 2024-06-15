@@ -71,11 +71,9 @@ Route::post('comment/update/{comment}', [CommentController::class, 'update'])->n
 Route::resource('cart', StoreController::class)->except('update');
 
 Route::post('/shopping-cart-add', [ShoppingCartController::class, 'addToCart'])->name('shoppingCart.add');
-Route::get('/checkout', [ShoppingCartController::class, 'showCheckout'])->name('shop.checkout');
+// Route::get('/checkout', [ShoppingCartController::class, 'showCheckout'])->name('shop.checkout');
 Route::delete('/shopping-cart-delete', [ShoppingCartController::class, 'destroyProduct'])->name('shoppingCart.destroy');
 
-Route::get('/stripe', [StripeController::class, 'index'])->name('index');
-Route::get('/payment', [StripeController::class, 'checkout'])->name('payment');
-Route::get('/success', [StripeController::class, 'success'])->name('success');
+Route::get('/checkout', [StripeController::class, 'index'])->name('stripeCheckout');
 
 require __DIR__.'/auth.php';

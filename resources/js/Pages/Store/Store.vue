@@ -40,7 +40,7 @@ function updateValue(item, id) {
             <div class="flex items-center justify-between">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Store</h2>
                 <DropdownMenu>
-                    <DropdownMenuTrigger class="flex"><ShoppingBagIcon class="w-6"/><sup v-if="Object.keys(props.cart)">{{ Object.keys(props.cart).length }}</sup></DropdownMenuTrigger>
+                    <DropdownMenuTrigger class="flex"><ShoppingBagIcon class="w-6"/></DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuLabel>Shopping Bag</DropdownMenuLabel>
                         <DropdownMenuSeparator />
@@ -55,7 +55,7 @@ function updateValue(item, id) {
                             </div>
                         </div>
                         <DropdownMenuSeparator />
-                        <Link :href="route('shop.checkout')"><Button class="w-full">Checkout: ${{ getCartPrice() }}</Button></Link>
+                        <Link :href="route('stripeCheckout')"><Button class="w-full">Checkout: ${{ getCartPrice() }}</Button></Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
