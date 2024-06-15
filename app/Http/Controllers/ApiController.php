@@ -17,13 +17,13 @@ class ApiController extends Controller
         $response = Http::get('https://hajus.tak21fredyait.itmajakas.ee/api/car?limit=' . $limit);
 
         return $response->json();
-    } 
+    }
 
-    private function VW($limit) {
-        $response = Http::get('https://vwapi.tak21mander.itmajakas.ee/api/vw?limit=' . $limit);
+    private function Disc($limit) {
+        $response = Http::get('https://api.tak21loho.itmajakas.ee/api/disc?limit=' . $limit);
 
         return $response->json();
-    } 
+    }
 
     public function index() {
 
@@ -35,11 +35,12 @@ class ApiController extends Controller
 
         if (request()->get('whatapi') == 'lurescape') {
             $response = $this->lurescape($limit);
-        } else if (request()->get('whatapi') == 'cars'){
+        } 
+        else if (request()->get('whatapi') == 'cars'){
             $response = $this->cars($limit);
         }
-        else if (request()->get('whatapi') == 'vw'){
-            $response = $this->vw($limit);
+        else if (request()->get('whatapi') == 'disc'){
+            $response = $this->disc($limit);
         }
 
 
