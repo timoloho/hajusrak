@@ -88,4 +88,11 @@ Route::get('/class', function() {
 Route::get('admin/dashboard', [ArticleController::class, 'class'])->
     middleware(['auth', 'admin']);
 
+    Route::resource('cart', StoreController::class)->except('update');
+
+    Route::post('/shopping-cart-add', [ShoppingCartController::class, 'addToCart'])->name('shoppingCart.add');
+    // Route::get('/checkout', [ShoppingCartController::class, 'showCheckout'])->name('shop.checkout');
+    Route::delete('/shopping-cart-delete', [ShoppingCartController::class, 'destroyProduct'])->name('shoppingCart.destroy');
+    
+    Route::get('/checkout', [StripeController::class, 'index'])->name('stripeCheckout');
 require __DIR__.'/auth.php';
