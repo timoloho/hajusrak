@@ -5,17 +5,17 @@ require 'recipe/laravel.php';
 
 // Zone ühendus
 set('application', 'hajus');
-set('remote_user', 'virt106858');
-set('http_user', 'virt106858');
+set('remote_user', 'virt110110');
+set('http_user', 'virt110110');
 set('keep_releases', 2);
 
-host('tak21fredyait.itmajakas.ee')
-    ->setHostname('tak21fredyait.itmajakas.ee')
-    ->set('http_user', 'virt106858')
+host('tak21loho.itmajakas.ee')
+    ->setHostname('tak21loho.itmajakas.ee')
+    ->set('http_user', 'virt110110')
     ->set('deploy_path', '~/domeenid/www.tak21fredyait.itmajakas.ee/hajus')
     ->set('branch', 'main');
 
-set('repository', 'git@github.com:freduard/hajus-rakendused.git');
+set('repository', 'git@github.com:timoloho/hajusrak.git');
 
 // tasks
 task('opcache:clear', function () {
