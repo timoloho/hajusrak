@@ -7,6 +7,7 @@ use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ArticleController;
+
 use App\Models\Blog;
 use App\Models\Product;
 use App\Models\User;
@@ -94,5 +95,7 @@ Route::get('admin/dashboard', [ArticleController::class, 'class'])->
     // Route::get('/checkout', [ShoppingCartController::class, 'showCheckout'])->name('shop.checkout');
     Route::delete('/shopping-cart-delete', [ShoppingCartController::class, 'destroyProduct'])->name('shoppingCart.destroy');
     
-    Route::get('/checkout', [StripeController::class, 'index'])->name('stripeCheckout');
+    Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [StripeController::class, 'cancel'])->name('checkout.cancel');
+
 require __DIR__.'/auth.php';

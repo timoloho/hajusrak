@@ -55,7 +55,7 @@ function updateValue(item, id) {
                             </div>
                         </div>
                         <DropdownMenuSeparator />
-                        <Link :href="route('stripeCheckout')"><Button class="w-full">Checkout: ${{ getCartPrice() }}</Button></Link>
+                        <Link :href="route('stripeCheckout')">Checkout</Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
