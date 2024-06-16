@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\ArticleController;
 use App\Models\Blog;
 use App\Models\Product;
 use App\Models\User;
@@ -75,5 +76,16 @@ Route::post('/shopping-cart-add', [ShoppingCartController::class, 'addToCart'])-
 Route::delete('/shopping-cart-delete', [ShoppingCartController::class, 'destroyProduct'])->name('shoppingCart.destroy');
 
 Route::get('/checkout', [StripeController::class, 'index'])->name('stripeCheckout');
+
+Route::resource('articles', ArticleController::class)->withTrashed();
+Route::post('/{article}/comment', [CommentController::class, 'store'])->name('comment.post');
+Route::delete('/{comment}/comment', [CommentController::class, 'destroy'])->name('comment.delete');
+
+Route::get('/class', function() {
+    return Inertia::render('Api/Index');
+})->middleware(['auth:sanctum', 'verified'])->name('api');
+
+Route::get('admin/dashboard', [ArticleController::class, 'class'])->
+    middleware(['auth', 'admin']);
 
 require __DIR__.'/auth.php';

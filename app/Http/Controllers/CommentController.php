@@ -2,83 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\Comment;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     return Inertia::render('Comment/index', [
+    //         'comments' => Comment::all(),
+    //     ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    // }
+
+
+    public function store(Article $article, Request $request)
     {
         $request->validate([
             'comment' => 'required'
         ]);
 
-        Comment::create([
-            'blog_id' => $request['id'],
-            'user_id' => Auth::id(),
-            'description' => $request['comment']
-        ]);
+        $comment = new Comment();
+        $comment->description = $request->comment;
+        $comment->article_id = $article->id;
+        $comment->save();
 
-        return redirect()->back();
+        return back()->with("success","Kommentaar lisatud.");
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        return Inertia::render('Comment/Edit', [
-            'comment' => $comment
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        $comment->update([
-            'description' => $request['description']
-        ]);
-
-        return redirect()->route('dashboard');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Comment $comment)
     {
-        $comment->delete();
+        if (Auth::check() && Auth::user()->usertype == 'user') { // siin pead usertypei 'user'iks muutma, et saaks kustutada, muna ple admin
+            $comment->delete();
+            return back()->with('success', 'Kommentaar kustutatud.');
+        } elseif(Auth::check() && Auth::user()->usertype == 'user') {
+            return back()->with('success', 'Sul ei ole piisavalt oiguseid');    
+        }
+        return false;
+
+
     }
 }
